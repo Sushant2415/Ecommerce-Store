@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { getproducts } from "../services/ProductApi";
-
+import ProductGrid from "../components/ProductGrid";
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -14,7 +14,7 @@ const Home = () => {
         setError("");
 
         const data = await getproducts();
-        console.log(data)
+        // console.log(data)
         setProducts(data)
       } catch (error) {
         setError(error.message);
@@ -39,15 +39,8 @@ const Home = () => {
   return (
     <main>
       <h1>Our Products</h1>
-      <div>
-        {products.map((product) => (
-          <article key={product.id}>
-            <img src={product.image} alt={product.title} width="150" />
-            <h2>{product.title}</h2>
-            <p>${product.price} USD</p>
-          </article>
-        ))}
-      </div>
+      <ProductGrid products={products}/>
+
     </main>
   );
 };
