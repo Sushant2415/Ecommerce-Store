@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { getproducts } from "../services/ProductApi";
+import { getProducts } from "../services/ProductApi";
 import ProductGrid from "../components/ProductGrid";
 import SearchBar from "../components/SearchBar";
 import CategoryFilter from "../components/CategoryFilter";
@@ -17,7 +17,7 @@ const Home = () => {
         setLoading(true);
         setError("");
 
-        const data = await getproducts();
+        const data = await getProducts();
         // console.log(data)
         setProducts(data);
       } catch (error) {
