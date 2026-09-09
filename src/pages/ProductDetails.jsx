@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { getProductById } from "../services/ProductApi";
+import { useCart } from "../context/CartContext";
 const ProductDetails = () => {
   const { id } = useParams();
-
+  const { addToCart } = useCart();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
@@ -84,7 +85,11 @@ const ProductDetails = () => {
           </button>
         </div>
 
-        <button type="button" className="product-details__cart-button">
+        <button
+          type="button"
+          className="product-details__cart-button"
+          onClick={() => addToCart(product, quantity)}
+        >
           Add to Cart
         </button>
       </div>
