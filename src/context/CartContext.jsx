@@ -34,11 +34,18 @@ export function CartProvider({ children }) {
     });
   };
 
+  const removeFromCart = (productId) => {
+    setCartItems((currentItems) =>
+      currentItems.filter((item) => item.id !== productId),
+    );
+  };
+
   return (
     <CartContext.Provider
       value={{
         cartItems,
         addToCart,
+        removeFromCart
       }}
     >
       {children}

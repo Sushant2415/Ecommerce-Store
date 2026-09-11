@@ -1,15 +1,19 @@
 import React from "react";
-
-const Navbar = ({ storeName,cartCount }) => {
+import { useCart } from "../context/CartContext";
+import { Link } from "react-router-dom";
+const Navbar = ({ storeName}) => {
+  const { cartItems } = useCart();
+  const totalItems = cartItems.reduce(
+    (total, item) => total + item.quantity,
+    0,
+  );
   return (
     <nav className="navbar">
-      <div className="navbar_logo">
-        {storeName}
-      </div>
+      <div className="navbar_logo">{storeName}</div>
       <div className="navbar_links">
-        <a href="/">Home</a>
-        <a href="/products">Products</a>
-        <a href="/cart">Cart ({cartCount})</a>
+        <Link to={"/"}>Home</Link>
+        <Link to={"/products"}>Products</Link>
+        <Link to={"/cart"}>Cart({totalItems})</Link>
       </div>
     </nav>
   );
