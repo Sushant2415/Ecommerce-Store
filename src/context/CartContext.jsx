@@ -40,12 +40,25 @@ export function CartProvider({ children }) {
     );
   };
 
+  const updateQuantity = (productId, newQuantity) => {
+    setCartItems((currentItems) =>
+      currentItems.map((item) =>
+        item.id === productId
+          ? {
+              ...item,
+              quantity: Math.max(1, newQuantity),
+            }
+          : item,
+      ),
+    );
+  };
   return (
     <CartContext.Provider
       value={{
         cartItems,
         addToCart,
-        removeFromCart
+        removeFromCart,
+        updateQuantity,
       }}
     >
       {children}

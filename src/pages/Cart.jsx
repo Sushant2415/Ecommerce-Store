@@ -1,7 +1,7 @@
 import { useCart } from "../context/CartContext";
-
+import { Link } from "react-router-dom";
 function Cart() {
-  const { cartItems, removeFromCart } = useCart();
+  const { cartItems, removeFromCart, updateQuantity } = useCart();
 
   if (cartItems.length === 0) {
     return (
@@ -13,7 +13,10 @@ function Cart() {
       </main>
     );
   }
-
+  const subTotal = cartItems.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0,
+  );
   return (
     <main className="cart-page">
       <h1>Your Cart</h1>
@@ -37,7 +40,19 @@ function Cart() {
               <p className="cart-item__price">${item.price}</p>
 
               <div className="cart-item__quantity">
-                <span>Quantity: {item.quantity}</span>
+                <button
+                  type="button"
+                  onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                >
+                  -
+                </button>
+                <span>{item.quantity}</span>
+                <button
+                  type="button"
+                  onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                >
+                  +
+                </button>
               </div>
             </div>
 
@@ -55,6 +70,23 @@ function Cart() {
             </button>
           </article>
         ))}
+      </div>
+      <div className="cart-summary">
+        <h2>Cart Summary</h2>
+
+        <div className="cart-summary__row">
+          <span>Subtotal</span>
+          <span>${subTotal.toFixed(2)}</span>
+        </div>
+
+        <div className="cart-summary__row cart-summary__total">
+          <span>Total</span>
+          <span>${subTotal.toFixed(2)}</span>
+        </div>
+
+        <Link to="/checkout" className="checkout-button">
+          Proceed to Checkout
+        </Link>
       </div>
     </main>
   );
