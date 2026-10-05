@@ -5,6 +5,8 @@ import Home from "./pages/Home";
 import ProductDetails from "./pages/ProductDetails";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
 const App = () => {
   return (
     <BrowserRouter>
@@ -12,10 +14,11 @@ const App = () => {
 
       <Routes>
         <Route path="/" element={<Home />} />
-
         <Route path="/products/:id" element={<ProductDetails />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/Checkout" element={<Checkout />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />}></Route>
       </Routes>
     </BrowserRouter>
   );

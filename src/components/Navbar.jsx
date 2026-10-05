@@ -1,12 +1,16 @@
-import React from "react";
+import React, { use } from "react";
 import { useCart } from "../context/CartContext";
 import { Link } from "react-router-dom";
-const Navbar = ({ storeName}) => {
+import { useAuth } from "../context/AuthContext";
+
+const Navbar = ({ storeName }) => {
   const { cartItems } = useCart();
   const totalItems = cartItems.reduce(
     (total, item) => total + item.quantity,
     0,
   );
+  const { user } = useAuth();
+  console.log("Current User : ", user);
   return (
     <nav className="navbar">
       <div className="navbar_logo">{storeName}</div>
