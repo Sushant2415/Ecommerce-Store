@@ -1,10 +1,14 @@
 import React from "react";
 import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
+
 const Login = () => {
+  const { loginUser } = useAuth();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const [error, setError] = useState("");
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -15,8 +19,15 @@ const Login = () => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
+    setError("");
 
-    console.log("Login data : ", formData);
+    try {
+      loginUser(formData.email.trim(), formData.password);
+
+      alert("Login Successful!");
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   return (
@@ -47,6 +58,7 @@ const Login = () => {
               placeholder="Enter Your Password"
             />
           </div>
+          {error && <p className="form-error">{error}</p>}
           <button type="submit">Login</button>
         </form>
       </div>

@@ -21,8 +21,29 @@ export function AuthProvider({ children }) {
     setUser(newUser);
     return newUser;
   };
+
+  const loginUser = (email, password) => {
+    const storedUser = localStorage.getItem("registeredUser");
+
+    if (!storedUser) {
+      throw new Error("No registered user found.");
+    }
+    const registeredUser = JSON.parse(storedUser);
+
+    if (registeredUser.email !== email || registeredUser.password !== password) {
+      throw new Error("Invalid email or password.");
+    }
+
+    const loggedInUser = {
+      name: registerUser.name,
+      email: registerUser.email,
+    };
+    setUser(loggedInUser);
+
+    return loggedInUser;
+  };
   return (
-    <AuthContext.Provider value={{ user, setUser, registerUser }}>
+    <AuthContext.Provider value={{ user, setUser, registerUser,loginUser }}>
       {children}
     </AuthContext.Provider>
   );
