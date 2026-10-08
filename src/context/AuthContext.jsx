@@ -35,8 +35,8 @@ export function AuthProvider({ children }) {
     }
 
     const loggedInUser = {
-      name: registerUser.name,
-      email: registerUser.email,
+      name: registeredUser.name,
+      email: registeredUser.email,
     };
     setUser(loggedInUser);
 
