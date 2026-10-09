@@ -4,7 +4,10 @@ import { createContext, useState, useContext } from "react";
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem("loggedInUser");
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
 
   const registerUser = (userData) => {
     const newUser = {
@@ -18,7 +21,7 @@ export function AuthProvider({ children }) {
         password: userData.password,
       }),
     );
-    setUser(newUser);
+    
     return newUser;
   };
 
@@ -30,7 +33,10 @@ export function AuthProvider({ children }) {
     }
     const registeredUser = JSON.parse(storedUser);
 
-    if (registeredUser.email !== email || registeredUser.password !== password) {
+    if (
+      registeredUser.email !== email ||
+      registeredUser.password !== password
+    ) {
       throw new Error("Invalid email or password.");
     }
 
@@ -40,10 +46,18 @@ export function AuthProvider({ children }) {
     };
     setUser(loggedInUser);
 
+    localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
     return loggedInUser;
   };
+
+  const logoutUser = () => {
+    setUser(null);
+    localStorage.removeItem("loggedInUser");
+  };
   return (
-    <AuthContext.Provider value={{ user, setUser, registerUser,loginUser }}>
+    <AuthContext.Provider
+      value={{ user, setUser, registerUser, loginUser, logoutUser }}
+    >
       {children}
     </AuthContext.Provider>
   );
