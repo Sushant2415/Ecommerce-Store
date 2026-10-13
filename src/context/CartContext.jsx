@@ -1,17 +1,39 @@
 import { createContext, useContext, useState, useEffect } from "react";
-
+import { useAuth } from "./AuthContext";
 const CartContext = createContext();
-
 export function CartProvider({ children }) {
-  const [cartItems, setCartItems] = useState(() => {
-    const savedCart = localStorage.getItem("cartItems");
+  const { user } = useAuth();
 
-    return savedCart ? JSON.parse(savedCart) : [];
-  });
+  const cartKey = user?.email
+    ? `cart_${user.email.trim().toLowerCase()}`
+    : null;
+  const [cartItems, setCartItems] = useState([]);
+  const [loadedCartKey, setLoadedCartKey] = useState(null);
 
   useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-  }, [cartItems]);
+    if (!cartKey) {
+      setCartItems([]);
+      setLoadedCartKey(null);
+      return;
+    }
+
+    const savedCart = localStorage.getItem(cartKey);
+
+    try {
+      setCartItems(savedCart ? JSON.parse(savedCart) : []);
+    } catch {
+      setCartItems([]);
+    }
+
+    setLoadedCartKey(cartKey);
+  }, [cartKey]);
+
+  useEffect(() => {
+    if (!cartKey || loadedCartKey !== cartKey) {
+      return;
+    }
+    localStorage.setItem(cartKey, JSON.stringify(cartItems));
+  }, [cartItems, cartKey, loadedCartKey]);
 
   const addToCart = (product, quantity = 1) => {
     setCartItems((currentItems) => {
