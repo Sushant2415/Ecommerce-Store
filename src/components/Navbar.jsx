@@ -1,4 +1,4 @@
-import React, { use } from "react";
+import React from "react";
 import { useCart } from "../context/CartContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
@@ -11,7 +11,6 @@ const Navbar = ({ storeName }) => {
     0,
   );
   const { user, logoutUser } = useAuth();
-  console.log("Current User : ", user);
   return (
     <nav className="navbar">
       <div className="navbar_logo">{storeName}</div>
@@ -24,7 +23,8 @@ const Navbar = ({ storeName }) => {
             <span>Hi, {user.name}</span>
             <button
               onClick={() => {
-                (logoutUser(), navigate("/login", { replace: true }));
+                logoutUser();
+                navigate("/login", { replace: true });
               }}
             >
               Logout
@@ -33,7 +33,7 @@ const Navbar = ({ storeName }) => {
         ) : (
           <>
             <Link to="/login">Login</Link>
-            <Link to="register">Register</Link>
+            <Link to="/register">Register</Link>
           </>
         )}
       </div>

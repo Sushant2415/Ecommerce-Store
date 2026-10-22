@@ -65,7 +65,6 @@ function Cart() {
               className="cart-item__remove"
               onClick={() => removeFromCart(item.id)}
             >
-              {" "}
               Remove
             </button>
           </article>

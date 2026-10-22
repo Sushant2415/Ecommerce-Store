@@ -7,6 +7,7 @@ export function CartProvider({ children }) {
   const cartKey = user?.email
     ? `cart_${user.email.trim().toLowerCase()}`
     : null;
+
   const [cartItems, setCartItems] = useState([]);
   const [loadedCartKey, setLoadedCartKey] = useState(null);
 
