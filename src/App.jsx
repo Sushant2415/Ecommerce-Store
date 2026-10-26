@@ -8,6 +8,7 @@ import Checkout from "./pages/Checkout";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Products from "./pages/Products";
 const App = () => {
   return (
     <BrowserRouter>
@@ -27,6 +28,14 @@ const App = () => {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />}></Route>
+        <Route
+          path="/products"
+          element={
+            <ProtectedRoute>
+              <Products />
+            </ProtectedRoute>
+          }
+        ></Route>
       </Routes>
     </BrowserRouter>
   );

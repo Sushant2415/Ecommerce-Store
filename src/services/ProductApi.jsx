@@ -1,6 +1,5 @@
 const API_URL = "https://dummyjson.com/products";
 
-// DummyJSON ke product ko purane app ke format mein convert karna
 function normalizeProduct(product) {
   return {
     ...product,
@@ -14,7 +13,7 @@ function normalizeProduct(product) {
 
 // Saare products fetch karna
 export async function getProducts() {
-  const response = await fetch(API_URL);
+  const response = await fetch(`${API_URL}?limit=0`);
 
   if (!response.ok) {
     throw new Error("Failed to fetch products");
