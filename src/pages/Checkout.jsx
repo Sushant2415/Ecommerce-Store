@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useCart } from "../context/CartContext";
-import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+
 const Checkout = () => {
-  const { cartItems } = useCart();
+  const { cartItems, clearCart } = useCart();
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   const [shippingData, setShippingData] = useState({
     name: "",
@@ -10,6 +14,11 @@ const Checkout = () => {
     city: "",
     pincode: "",
   });
+
+  const subTotal = cartItems.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0,
+  );
 
   const handleChange = (event) => {
     const { id, value } = event.target;
@@ -22,20 +31,35 @@ const Checkout = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Shipping Details : ", shippingData);
-    console.log("Order Total : ", subTotal);
 
-    alert("Order Placed Successfully ✅");
+    if (cartItems.length === 0) {
+      alert("Your cart is empty.");
+      return;
+    }
+
+    const order = {
+      id: Date.now(),
+      userEmail: user?.email,
+      items: cartItems,
+      shipping: shippingData,
+      total: subTotal,
+      createdAt: new Date().toISOString(),
+    };
+
+    localStorage.setItem("lastOrder", JSON.stringify(order));
+
+    clearCart();
+
+    navigate("/order-success");
   };
-  const subTotal = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0,
-  );
+
   return (
     <main className="checkout-page">
       <h1>Checkout</h1>
+
       <div className="checkout-summary">
         <h2>Order Summary</h2>
+
         {cartItems.map((item) => (
           <div className="checkout-item" key={item.id}>
             <img
@@ -51,13 +75,17 @@ const Checkout = () => {
             </div>
           </div>
         ))}
+
         <h3>Total: ${subTotal.toFixed(2)}</h3>
       </div>
+
       <div className="checkout-form">
         <h2>Shipping Details</h2>
+
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="name">Full Name</label>
+
             <input
               type="text"
               id="name"
@@ -67,28 +95,34 @@ const Checkout = () => {
               required
             />
           </div>
+
           <div className="form-group">
-            <label htmlFor="address">Address </label>
+            <label htmlFor="address">Address</label>
+
             <textarea
               id="address"
               value={shippingData.address}
               onChange={handleChange}
               placeholder="Enter your address"
               required
-            ></textarea>
+            />
           </div>
+
           <div className="form-group">
             <label htmlFor="city">City</label>
+
             <textarea
               id="city"
               value={shippingData.city}
               onChange={handleChange}
               placeholder="Enter your city"
               required
-            ></textarea>
+            />
           </div>
+
           <div className="form-group">
             <label htmlFor="pincode">Pincode</label>
+
             <input
               type="text"
               id="pincode"
@@ -98,8 +132,9 @@ const Checkout = () => {
               pattern="[0-9]{6}"
               maxLength={6}
               required
-            ></input>
+            />
           </div>
+
           <button type="submit">Place Order</button>
         </form>
       </div>

@@ -4,52 +4,79 @@ const Home = () => {
   return (
     <main className="home-page">
       {/* Hero Section */}
-      <section className="home-hero">
+      <section
+        className="home-hero"
+        style={{
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1607082349566-187342175e2f?auto=format&fit=crop&w=1800&q=80')",
+        }}
+      >
         <div className="home-hero__content">
-          <p className="home-hero__eyebrow">NEW COLLECTION</p>
+          <p className="home-hero__eyebrow">WELCOME TO OUR STORE</p>
 
-          <h1>Style That Speaks For You.</h1>
+          <h1>Everything You Need, All In One Place.</h1>
 
           <p>
-            Discover the latest fashion trends, timeless essentials, and styles
-            made for every occasion.
+            Shop the latest products, best deals, and everyday essentials at
+            great prices.
           </p>
 
           <Link to="/products" className="home-hero__button">
-            Explore Collection
+            Shop Now
           </Link>
         </div>
       </section>
 
-      {/* Fashion Categories */}
+      {/* Categories */}
       <section className="home-section">
         <div className="home-section__heading">
           <p>EXPLORE</p>
-          <h2>Shop Your Style</h2>
+          <h2>Shop By Category</h2>
         </div>
 
         <div className="home-category-grid">
-          <Link to="/products" className="home-category-card">
+          <Link
+            to="/products"
+            className="home-category-card"
+            style={{
+              backgroundImage:
+                "url('https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=80')",
+            }}
+          >
             <div className="home-category-card__content">
               <span>01</span>
-              <h3>Men's Fashion</h3>
-              <p>Explore modern styles for him.</p>
+              <h3>Electronics</h3>
+              <p>Phones, gadgets and more.</p>
             </div>
           </Link>
 
-          <Link to="/products" className="home-category-card">
+          <Link
+            to="/products"
+            className="home-category-card"
+            style={{
+              backgroundImage:
+                "url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=900&q=80')",
+            }}
+          >
             <div className="home-category-card__content">
               <span>02</span>
-              <h3>Women's Fashion</h3>
-              <p>Discover styles made for her.</p>
+              <h3>Fashion</h3>
+              <p>Clothes, shoes and accessories.</p>
             </div>
           </Link>
 
-          <Link to="/products" className="home-category-card">
+          <Link
+            to="/products"
+            className="home-category-card"
+            style={{
+              backgroundImage:
+                "url('https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=900&q=80')",
+            }}
+          >
             <div className="home-category-card__content">
               <span>03</span>
-              <h3>Trending Now</h3>
-              <p>What's trending right now.</p>
+              <h3>Home & Living</h3>
+              <p>Everything for your home.</p>
             </div>
           </Link>
         </div>
@@ -58,9 +85,9 @@ const Home = () => {
       {/* Top Selling */}
       <section className="home-section home-top-selling">
         <div className="home-section__heading">
-          <p>POPULAR PICKS</p>
+          <p>POPULAR PRODUCTS</p>
           <h2>Top Selling</h2>
-          <span>The styles everyone is talking about.</span>
+          <span>Check out products loved by our customers.</span>
         </div>
 
         <Link to="/products" className="home-section__link">
@@ -69,32 +96,38 @@ const Home = () => {
       </section>
 
       {/* Trending */}
-      <section className="home-trending">
+      <section
+        className="home-trending"
+        style={{
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=1800&q=80')",
+        }}
+      >
         <div className="home-trending__content">
-          <p>TRENDING NOW</p>
+          <p>BEST DEALS</p>
 
           <h2>
-            Find Your
+            Find Great
             <br />
-            Next Favorite.
+            Products.
           </h2>
 
           <p>
-            Fresh styles, everyday essentials, and fashion pieces you will want
-            to wear again and again.
+            Discover useful products, everyday essentials and great deals all in
+            one place.
           </p>
 
           <Link to="/products" className="home-trending__button">
-            Shop Trending
+            Explore Products
           </Link>
         </div>
       </section>
 
       {/* Final CTA */}
       <section className="home-cta">
-        <p>YOUR STYLE. YOUR CHOICE.</p>
+        <p>SHOP. DISCOVER. ENJOY.</p>
 
-        <h2>Ready to upgrade your wardrobe?</h2>
+        <h2>Find something you'll love.</h2>
 
         <Link to="/products" className="home-cta__button">
           Start Shopping
