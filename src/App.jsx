@@ -9,6 +9,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Products from "./pages/Products";
+import OrderSuccess from "./pages/OrderSuccess";
 const App = () => {
   return (
     <BrowserRouter>
@@ -36,6 +37,7 @@ const App = () => {
             </ProtectedRoute>
           }
         ></Route>
+        <Route path="/order-success" element={<OrderSuccess />} />
       </Routes>
     </BrowserRouter>
   );

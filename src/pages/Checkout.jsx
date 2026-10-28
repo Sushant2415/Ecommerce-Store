@@ -46,7 +46,18 @@ const Checkout = () => {
       createdAt: new Date().toISOString(),
     };
 
-    localStorage.setItem("lastOrder", JSON.stringify(order));
+    const ordersKey = `orders_${user.email.trim().toLowerCase()}`;
+    const savedOrders = localStorage.getItem(ordersKey);
+
+    let orders = [];
+
+    try {
+      orders = savedOrders ? JSON.parse(savedOrders) : []
+    } catch {
+      orders = []
+    }
+    orders.push(order)
+    localStorage.setItem(ordersKey, JSON.stringify(orders));
 
     clearCart();
 
