@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Products from "./pages/Products";
 import OrderSuccess from "./pages/OrderSuccess";
+import MyOrders from "./pages/MyOrders";
 const App = () => {
   return (
     <BrowserRouter>
@@ -38,6 +39,14 @@ const App = () => {
           }
         ></Route>
         <Route path="/order-success" element={<OrderSuccess />} />
+        <Route
+          path="/my-orders"
+          element={
+            <ProtectedRoute>
+              <MyOrders />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

@@ -18,6 +18,7 @@ const Navbar = ({ storeName }) => {
         <Link to={"/"}>Home</Link>
         <Link to={"/products"}>Products</Link>
         <Link to={"/cart"}>Cart({totalItems})</Link>
+        {user && <Link to="/my-orders">My Orders</Link>}
         {user ? (
           <>
             <span>Hi, {user.name}</span>

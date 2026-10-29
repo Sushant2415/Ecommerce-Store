@@ -52,11 +52,11 @@ const Checkout = () => {
     let orders = [];
 
     try {
-      orders = savedOrders ? JSON.parse(savedOrders) : []
+      orders = savedOrders ? JSON.parse(savedOrders) : [];
     } catch {
-      orders = []
+      orders = [];
     }
-    orders.push(order)
+    orders.push(order);
     localStorage.setItem(ordersKey, JSON.stringify(orders));
 
     clearCart();
