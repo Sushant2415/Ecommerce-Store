@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 function Register() {
-  const { registerUser } = useAuth();
+  const { regitsteredUser } = useAuth();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -31,7 +31,7 @@ function Register() {
       alert("Password must be at least 6 character.");
       return;
     }
-    registerUser({
+    regitsteredUser({
       name,
       email,
       password: formData.password,
